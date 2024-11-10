@@ -1,12 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 @import '../css/login.css';
 @import '../css/pages_btn.css';
-@import '../css/comments.css';
-@import '../css/albums.css';
-@import '../css/photos.css';
-@import '../css/posts.css';
-@import '../css/todos.css';
-@import '../css/users.css';
+@import '../css/card.css';
 * {
     margin: 0;
     padding: 0;

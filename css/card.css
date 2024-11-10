@@ -29,17 +29,28 @@
     transition: 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    h2 {
+        text-transform: capitalize;
+        font-size: 22px;
+        font-weight: 400;
+    }
     h3 {
         max-width: 300px;
         width: 100%;
         text-transform: capitalize;
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: 400;
     }
     h4 {
         font-size: 14px;
+        font-weight: 400;
         color: #0477ea;
         text-decoration: underline;
         cursor: pointer;
+    }
+    h5 {
+        font-size: 12px;
+        font-weight: 400;
     }
     p {
         font-size: 14px;
@@ -48,7 +59,7 @@
         }
     }
     &:hover {
-        transform: translateY(-10px);
+        transform: translateY(-10px) rotate(4deg);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.2);
     }
 }
