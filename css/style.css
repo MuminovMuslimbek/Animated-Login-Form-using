@@ -58,6 +58,7 @@ body {
     max-width: 1440px;
     width: 100%;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 header {
@@ -123,10 +124,15 @@ header {
             transform: scale(0.95);
         }
     }
+    @media screen and (max-width:577px) {
+        .input {
+            display: none;
+        }
+    }
 }
 
 .wrapper_main {
-    min-height: 675px;
+    min-height: 660px;
     height: 100%;
     display: flex;
     flex-direction: column;
