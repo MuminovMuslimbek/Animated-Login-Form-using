@@ -1,3 +1,98 @@
+// Login:
+const login_wrapper = document.querySelector('.login_wrapper')
+const form = document.querySelector('#form')
+const usernameInput = document.querySelector('#username')
+const passwordInput = document.querySelector('#password')
+const btn = document.querySelector('.btn')
+const body = document.querySelector('.body')
+const quite = document.querySelector('#quite')
+const load = document.querySelector('.load')
+
+function validate() {
+    if (usernameInput.value.trim().length === 0) {
+        alert("Iltimos, username ni qayta to'ldiring!");
+        usernameInput.focus();
+        usernameInput.style.borderColor = 'red';
+        return false;
+    } else if (usernameInput.value.length < 3) {
+        alert("Username 3ta harfdan kam bo'lmaydi!");
+        usernameInput.focus();
+        usernameInput.style.borderColor = 'red';
+        return false;
+    } else if (passwordInput.value.trim().length === 0) {
+        alert("Iltimos, password ni qayta to'ldiring!");
+        passwordInput.focus();
+        passwordInput.style.borderColor = 'red';
+        return false;
+    }
+    return true;
+}
+
+function getUserFromLocalStorage() {
+    let value = [];
+    if (localStorage.getItem('user')) {
+        value = JSON.parse(localStorage.getItem('user'));
+    }
+    return value;
+}
+
+btn && btn.addEventListener('click', function(event) {
+    event.preventDefault();
+    let isValidate = validate();
+    if (!isValidate) {
+        return;
+    }
+    const username = "admin";
+    const spassword = "admin";
+    if (passwordInput.value === spassword && usernameInput.value === username) {
+        login_wrapper.style.display = "none";
+        load.style.display = 'block';
+        setTimeout(() => {
+            load.style.display = 'none';
+            body.style.display = 'block';
+        }, 3000)
+    } else {
+        alert("Username yoki passwordingizda xatolik bor!");
+        passwordInput.focus();
+        passwordInput.style.borderColor = 'red';
+        return;
+    }
+
+    const user = {
+        username: usernameInput.value,
+        password: passwordInput.value
+    };
+    let userLocalStorage = getUserFromLocalStorage();
+    userLocalStorage.push(user);
+    localStorage.setItem('user', JSON.stringify(userLocalStorage));
+    form.reset();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('user')) {
+        body.style.display = 'block';
+        login_wrapper.style.display = 'none';
+    } else {
+        login_wrapper.style.display = 'flex';
+        body.style.display = 'none';
+    }
+});
+
+quite && quite.addEventListener('click', function(event) {
+    event.preventDefault();
+    let isQuite = confirm("Rostdan ham chiqib ketmoqchimisiz?");
+    if (isQuite) {
+        body.style.display = 'none';
+        load.style.display = 'block';
+        setTimeout(() => {
+            load.style.display = 'none';
+            login_wrapper.style.display = 'flex';
+            localStorage.clear();
+        }, 3000)
+    }
+});
+
+// GET API:
 const wrapperMain = document.querySelector('#wrapper_main');
 const wrapper = document.querySelector('#wrapper');
 const title = document.querySelector('#title');
@@ -75,41 +170,4 @@ todosBtn.addEventListener('click', function() {
 
 usersBtn.addEventListener('click', function() {
     fetchData('https://jsonplaceholder.typicode.com/users', 'Users');
-});
-
-function CreateCardPhotos(data) {
-    return `
-    <div class="block">
-        <span><strong>ID:</strong> ${data.id}</span>
-        <h3><strong>Title:</strong> ${data.title}</h3>
-        <img src="${data.url}" alt="Photo">
-        <img src="${data.thumbnailUrl}" alt="Thumbnail">
-        <span><strong>Album ID:</strong> ${data.albumId}</span>
-    </div>`;
-}
-
-photosBtn.addEventListener('click', function() {
-    fetch('https://jsonplaceholder.typicode.com/photos', {
-        method: 'GET'
-    })
-    .then(response => {
-        if (response.status === 200) {
-            return response.json();
-        }
-        throw new Error('API ga noto‘g‘ri murojaat qilindi!!');
-    })
-    .then(data => {
-        wrapper.innerHTML = '';
-        title.innerHTML = 'Photos';
-        data.forEach(element => {
-            let card = CreateCardPhotos(element);
-            wrapper.innerHTML += card;
-        });
-    })
-    .catch(error => {
-        console.log(error);
-    })
-    .finally(() => {
-        console.log('API ga murojaat tugadi!!');
-    });
 });
