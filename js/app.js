@@ -91,6 +91,44 @@ quite && quite.addEventListener('click', function(event) {
         }, 3000)
     }
 });
+// Search
+const searchInput = document.getElementById("search");
+const notFound = document.getElementById("notFound");
+const searchTitle = document.getElementById("searchTitile");
+
+searchInput.addEventListener("input", function() {
+    let searchQuery = searchInput.value.toLowerCase();
+    let found = false;
+
+    const cards = wrapper.querySelectorAll(".block");
+
+    cards.forEach(card => {
+        const cardId = card.querySelector("span strong") ? card.querySelector("span").textContent.toLowerCase() : '';
+        if (cardId.includes(searchQuery) && searchQuery !== "") {
+            card.style.display = "block";
+            found = true;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    if (searchQuery === "") {
+        cards.forEach(card => {
+            card.style.display = "block";
+        });
+        searchTitle.style.display = "none";
+        title.style.display = "block";
+        notFound.style.display = "none";
+    } else if (found) {
+        searchTitle.style.display = "flex";
+        title.style.display = "none";
+        notFound.style.display = "none";
+    } else {
+        searchTitle.style.display = "none";
+        title.style.display = "none";
+        notFound.style.display = "flex";
+    }
+});
 
 // GET API:
 const wrapperMain = document.querySelector('#wrapper_main');
@@ -134,7 +172,7 @@ function fetchData(apiUrl, Title) {
         })
         .then(data => {
             wrapper.innerHTML = ''; 
-            data.forEach(element => {
+            data.slice(0, 50).forEach(element => {
                 let card = CreateCard(element);
                 wrapper.innerHTML += card;
             });
@@ -170,4 +208,42 @@ todosBtn.addEventListener('click', function() {
 
 usersBtn.addEventListener('click', function() {
     fetchData('https://jsonplaceholder.typicode.com/users', 'Users');
+});
+
+
+function CreateCardPhotos(data) {
+    return `
+    <div class="block">
+        <span><strong>ID:</strong> ${data.id}</span>
+        <h3><strong>Title:</strong> ${data.title}</h3>
+        <img src="${data.url}" alt="Photo">
+        <img src="${data.thumbnailUrl}" alt="Thumbnail">
+        <span><strong>Album ID:</strong> ${data.albumId}</span>
+    </div>`;
+}
+
+photosBtn.addEventListener('click', function() {
+    fetch('https://jsonplaceholder.typicode.com/photos', {
+            method: 'GET'
+        })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            }
+            throw new Error('API ga noto‘g‘ri murojaat qilindi!!');
+        })
+        .then(data => {
+            wrapper.innerHTML = '';
+            title.innerHTML = 'Photos';
+            data.slice(0,50).forEach(element => {
+                let card = CreateCardPhotos(element);
+                wrapper.insertAdjacentHTML('beforeend', card);
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        })
+        .finally(() => {
+            console.log('API ga murojaat tugadi!!');
+        });
 });

@@ -1,0 +1,21 @@
+#searchTitile {
+    display: none;
+    color: #fff;
+    font-size: 30px;
+}
+
+#notFound {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    h4 {
+        width: 600px;
+        text-align: center;
+        font-size: 40px;
+        margin-top: 20px;
+        color: #fdfdfd;
+    }
+}

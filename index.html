@@ -94,7 +94,7 @@
             <div class="header__container container">
                 <a class="logo" href="index.html"><img src="images/favicon.png" alt="logo" width="90px"></a>
                 <div class="input">
-                    <input type="number" placeholder="Search..">
+                    <input id="search" type="number" placeholder="Search..">
                     <img class="searchImg" src="images/searchImg.png" width="30px">
                 </div>
                 <button id="quite">Log out <img src="images/logout.png" width="20px"></button>
@@ -110,6 +110,11 @@
         </div>
         <div class="wrapper_main">
             <h1 id="title"></h1>
+            <h2 id="searchTitile">Shu kardlar mavjud:</h2>
+            <div id="notFound" style="display: none;">
+                <h4>Siz qidirib turgan card bu yerda mavjud emas!</h4>
+                <img src="images/not_found.png" alt="not found" width="300px">
+            </div>
             <div id="wrapper">`
                 <img class="loading" src="images/loading.gif" alt="loading" width="150px">
             </div>

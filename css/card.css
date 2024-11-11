@@ -29,6 +29,11 @@
     transition: 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    img {
+        max-width: 200px;
+        width: 100%;
+        margin: 0 auto;
+    }
     h2 {
         text-transform: capitalize;
         font-size: 22px;
